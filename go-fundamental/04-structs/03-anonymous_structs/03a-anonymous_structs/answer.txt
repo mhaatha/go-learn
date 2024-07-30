@@ -1,0 +1,1 @@
+Anonymous structs prevent you from re-using a struct definition you never intended to re-use
