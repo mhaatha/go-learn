@@ -1,0 +1,1 @@
+A type has all the required interface's methods defined on it
