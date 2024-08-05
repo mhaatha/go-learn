@@ -8,11 +8,11 @@ import (
 
 func getCounts(userIDs []string) map[string]int {
 	count := make(map[string]int)
-	for _, uids := range userIDs {
-		if _, isExists := count[uids]; !isExists {
-			count[uids] = 0
+	for _, uIDs := range userIDs {
+		if _, isExists := count[uIDs]; !isExists {
+			count[uIDs] = 0
 		}
-		count[uids]++
+		count[uIDs]++
 	}
 	return count
 }
