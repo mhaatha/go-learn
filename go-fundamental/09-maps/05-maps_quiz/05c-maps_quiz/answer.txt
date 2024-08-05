@@ -1,0 +1,1 @@
+A boolean that indicates whether the key exists
