@@ -23,6 +23,7 @@ func test(userIDs, ids []string) {
 	fmt.Printf("Generating counts for %v user IDs...\n", len(userIDs))
 
 	counts := getCounts(userIDs)
+
 	fmt.Println("Counts from select IDs:")
 	for _, k := range ids {
 		v := counts[k]
