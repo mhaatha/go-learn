@@ -1,0 +1,1 @@
+A function that takes another function as an argument

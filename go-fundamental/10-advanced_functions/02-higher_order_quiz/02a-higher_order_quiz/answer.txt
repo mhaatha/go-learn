@@ -1,0 +1,1 @@
+A function that is treated like any other variable
