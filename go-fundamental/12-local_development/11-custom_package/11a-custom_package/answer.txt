@@ -1,0 +1,1 @@
+We used the 'replace' keyword in go.mod to point it to the relative location of mystrings
