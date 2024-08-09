@@ -10,11 +10,10 @@ func countReports(numSentCh chan int) int {
 
 	for {
 		numSent, ok := <-numSentCh
-		if ok {
-			totalReports += numSent
-		} else {
+		if !ok {
 			break
 		}
+		totalReports += numSent
 	}
 
 	return totalReports
