@@ -1,0 +1,1 @@
+Resist adding new features unless they're extremely important
