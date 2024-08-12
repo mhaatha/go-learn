@@ -1,0 +1,2 @@
+File ini ditulis menggunakan Go os standard library
+Ini adalah tulisan yang ditambahkan melalui function addToFileIni adalah tulisan yang ditambahkan melalui function addToFile
