@@ -9,6 +9,18 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+func TestSubTest(t *testing.T) {
+	t.Run("Sub Test 1", func(t *testing.T) {
+		result := HelloWorld("Sub Test 1")
+		require.Equal(t, "Hello Sub Test 1", result, "Result must be 'Hello Sub Test 1'")
+	})
+
+	t.Run("Sub Test 2", func(t *testing.T) {
+		result := HelloWorld("Sub Test 2")
+		require.Equal(t, "Hello Sub Test 2", result, "Result must be 'Hello Sub Test 2'")
+	})
+}
+
 func TestMain(m *testing.M) {
 	fmt.Println("=============================")
 	fmt.Println("BEFORE TEST")
