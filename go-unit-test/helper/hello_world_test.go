@@ -9,6 +9,18 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+func TestMain(m *testing.M) {
+	fmt.Println("=============================")
+	fmt.Println("BEFORE TEST")
+	fmt.Println("=============================")
+
+	m.Run()
+
+	fmt.Println("=============================")
+	fmt.Println("AFTER TEST")
+	fmt.Println("=============================")
+}
+
 func TestHelloWorldSkip(t *testing.T) {
 	if runtime.GOOS == "linux" {
 		t.Skip("This test only run in any operating system except linux")
