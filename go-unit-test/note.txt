@@ -1,0 +1,7 @@
+Service -> Business logic
+Repository -> Jembatan ke database
+Agar kode mudah ditest, disarankana untuk membuat kontrak berupa interface. Jangan langsung membuat function untuk connect ke database. Tidak disarankan karena akan mempersulit mock test.
+
+Membuat entity -> Representasi tabel di database
+Membuat repository -> Jangan membuat function untuk connect ke database secara langsung. Buat interface
+Membuat service -> Unit test idealnya tidak merunning third party system apapun, service bisa ditest dengan mocking
