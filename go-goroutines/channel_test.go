@@ -6,6 +6,31 @@ import (
 	"time"
 )
 
+func OnlyIn(channel chan<- string) {
+	time.Sleep(2 * time.Second)
+	channel <- "Only send channel"
+}
+
+func OnlyOut(channel <-chan string) {
+	time.Sleep(2 * time.Second)
+
+	data := <-channel
+	fmt.Println(data)
+
+	data = "Only receive channel"
+	fmt.Println(data)
+}
+
+func TestInOutChannel(t *testing.T) {
+	channel := make(chan string)
+	defer close(channel)
+
+	go OnlyIn(channel)
+	go OnlyOut(channel)
+
+	time.Sleep(5 * time.Second)
+}
+
 func GiveMeResponse(channel chan string) {
 	time.Sleep(2 * time.Second)
 	channel <- "Channel as parameter"
