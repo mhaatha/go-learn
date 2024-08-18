@@ -6,6 +6,25 @@ import (
 	"time"
 )
 
+func TestBufferedChannel(t *testing.T) {
+	channel := make(chan string, 3)
+	defer close(channel)
+
+	go func() {
+		channel <- "Data ke 1"
+		channel <- "Data ke 2"
+		channel <- "Data ke 3"
+	}()
+
+	go func() {
+		fmt.Println(<-channel)
+		fmt.Println(<-channel)
+		fmt.Println(<-channel)
+	}()
+
+	time.Sleep(time.Second)
+}
+
 func OnlyIn(channel chan<- string) {
 	time.Sleep(2 * time.Second)
 	channel <- "Only send channel"
