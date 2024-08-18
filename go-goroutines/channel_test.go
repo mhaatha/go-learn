@@ -6,6 +6,21 @@ import (
 	"time"
 )
 
+func TestRangeChannel(t *testing.T) {
+	channel := make(chan string, 10)
+
+	go func() {
+		for i := 1; i <= cap(channel); i++ {
+			channel <- fmt.Sprintf("Perulangan ke %d", i)
+		}
+		close(channel)
+	}()
+
+	for data := range channel {
+		fmt.Println("Menerima data", data)
+	}
+}
+
 func TestBufferedChannel(t *testing.T) {
 	channel := make(chan string, 3)
 	defer close(channel)
