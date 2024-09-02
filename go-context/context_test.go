@@ -40,3 +40,7 @@ func TestContextWithValue(t *testing.T) {
 	fmt.Println(contextE.Value("C")) // nil
 	fmt.Println(contextA.Value("C")) // nil
 }
+
+func TestContextWithCancel(t *testing.T) {
+
+}
