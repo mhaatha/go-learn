@@ -3,6 +3,7 @@ package go_context
 import (
 	"context"
 	"fmt"
+	"runtime"
 	"testing"
 )
 
@@ -41,6 +42,31 @@ func TestContextWithValue(t *testing.T) {
 	fmt.Println(contextA.Value("C")) // nil
 }
 
-func TestContextWithCancel(t *testing.T) {
+func CreateCounter() chan int {
+	destination := make(chan int)
 
+	go func() {
+		defer close(destination)
+		counter := 1
+		for {
+			destination <- counter
+			counter++
+		}
+	}()
+	
+	return destination
+}
+
+func TestContextWithCancel(t *testing.T) {
+	fmt.Println("Total Goroutine:", runtime.NumGoroutine())
+
+	destination := CreateCounter()
+	for n := range destination {
+		fmt.Println("Counter:", n)
+		if n == 10 {
+			break
+		}
+	}
+
+	fmt.Println("Total Goroutine:", runtime.NumGoroutine())
 }
