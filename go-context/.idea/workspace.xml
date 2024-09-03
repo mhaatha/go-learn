@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0b2659e0-f33c-437c-862b-0dafaf45a9b6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/context_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/context_test.go" afterDir="false" />
-    </list>
+    <list default="true" id="0b2659e0-f33c-437c-862b-0dafaf45a9b6" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,39 +29,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
-    &quot;Go Test.TestContext in github.com/mhaatha/go-learn/go-context.executor&quot;: &quot;Run&quot;,
-    &quot;Go Test.TestContextWithCancel in github.com/mhaatha/go-learn/go-context.executor&quot;: &quot;Run&quot;,
-    &quot;Go Test.TestContextWithDeadline in github.com/mhaatha/go-learn/go-context.executor&quot;: &quot;Run&quot;,
-    &quot;Go Test.TestContextWithTimeout in github.com/mhaatha/go-learn/go-context.executor&quot;: &quot;Run&quot;,
-    &quot;Go Test.TestContextWithValue in github.com/mhaatha/go-learn/go-context.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/mhaathaya/Belajar/GO/go-learn/go-context&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultGoTemplateProperty": "Go File",
+    "Go Test.TestContext in github.com/mhaatha/go-learn/go-context.executor": "Run",
+    "Go Test.TestContextWithCancel in github.com/mhaatha/go-learn/go-context.executor": "Run",
+    "Go Test.TestContextWithDeadline in github.com/mhaatha/go-learn/go-context.executor": "Run",
+    "Go Test.TestContextWithTimeout in github.com/mhaatha/go-learn/go-context.executor": "Run",
+    "Go Test.TestContextWithValue in github.com/mhaatha/go-learn/go-context.executor": "Run",
+    "Go Test.TestFetchData in github.com/mhaatha/go-learn/go-context.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "git-widget-placeholder": "main",
+    "go.import.settings.migrated": "true",
+    "go.sdk.automatically.set": "true",
+    "last_opened_file_path": "/home/mhaathaya/Belajar/GO/go-learn/go-mysql",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm"
   }
-}</component>
-  <component name="RunManager" selected="Go Test.TestContextWithCancel in github.com/mhaatha/go-learn/go-context">
-    <configuration name="TestContext in github.com/mhaatha/go-learn/go-context" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="go-context" />
-      <working_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <package value="github.com/mhaatha/go-learn/go-context" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <pattern value="^\QTestContext\E$" />
-      <method v="2" />
-    </configuration>
+}]]></component>
+  <component name="RunManager" selected="Go Test.TestFetchData in github.com/mhaatha/go-learn/go-context">
     <configuration name="TestContextWithCancel in github.com/mhaatha/go-learn/go-context" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="go-context" />
       <working_directory value="$PROJECT_DIR$" />
@@ -108,13 +96,24 @@
       <pattern value="^\QTestContextWithValue\E$" />
       <method v="2" />
     </configuration>
+    <configuration name="TestFetchData in github.com/mhaatha/go-learn/go-context" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="go-context" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="github.com/mhaatha/go-learn/go-context" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestFetchData\E$" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.TestFetchData in github.com/mhaatha/go-learn/go-context" />
         <item itemvalue="Go Test.TestContextWithCancel in github.com/mhaatha/go-learn/go-context" />
         <item itemvalue="Go Test.TestContextWithDeadline in github.com/mhaatha/go-learn/go-context" />
         <item itemvalue="Go Test.TestContextWithTimeout in github.com/mhaatha/go-learn/go-context" />
         <item itemvalue="Go Test.TestContextWithValue in github.com/mhaatha/go-learn/go-context" />
-        <item itemvalue="Go Test.TestContext in github.com/mhaatha/go-learn/go-context" />
       </list>
     </recent_temporary>
   </component>
@@ -129,6 +128,17 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
