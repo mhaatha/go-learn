@@ -122,3 +122,35 @@ func TestContextWithDeadline(t *testing.T) {
 
 	fmt.Println("Total Goroutine:", runtime.NumGoroutine())
 }
+
+// ChatGPT Context Practice
+func FetchData(ctx context.Context, url string) {
+	go func() {
+		for {
+			select {
+			case <-ctx.Done():
+				return
+			default:
+				time.Sleep(1 * time.Second)
+				fmt.Println(url)
+			}
+		}
+	}()
+}
+
+func TestFetchData(t *testing.T) {
+	t.Logf("Total Goroutine before fetch: %d", runtime.NumGoroutine())
+
+	parent := context.Background()
+	ctx, cancel := context.WithCancel(parent)
+
+	FetchData(ctx, "https://github.com/mhaatha")
+
+	time.Sleep(6 * time.Second)
+
+	cancel()
+
+	time.Sleep(2 * time.Second)
+
+	t.Logf("Total Goroutine: %d", runtime.NumGoroutine())
+}
