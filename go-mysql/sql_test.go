@@ -44,3 +44,24 @@ func TestQuerySql(t *testing.T) {
 	}
 	defer rows.Close()
 }
+
+func TestInsertData(t *testing.T) {
+	db := GetConnection()
+	defer db.Close()
+
+	ctx := context.Background()
+
+	sqlCommand := "INSERT INTO customer(id, name, email, balance, rating, birth_date, married) VALUES('01', 'Hafidz', 'hafidz123@gmail.com', 100000, 5.0, '1999-09-19', true)"
+	_, err := db.ExecContext(ctx, sqlCommand)
+	if err != nil {
+		panic(err)
+	}
+
+	sqlCommand = "INSERT INTO customer(id, name, email, balance, rating, birth_date, married) VALUES('02', 'Athaya', 'athaya123@gmail.com', 200000, 5.0, '1999-09-19', true)"
+	_, err = db.ExecContext(ctx, sqlCommand)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("Success insert new data to customer table")
+}
