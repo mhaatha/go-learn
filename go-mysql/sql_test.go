@@ -147,3 +147,33 @@ func TestQuerySqlNullable(t *testing.T) {
 	}
 	defer rows.Close()
 }
+
+func TestSqlInjection(t *testing.T) {
+	db := GetConnection()
+	defer db.Close()
+
+	ctx := context.Background()
+
+	username := "admin'; #"
+	password := "salah"
+
+	sqlCommand := "SELECT username FROM user WHERE username = '" + username + "' AND password = '" + password + "'  LIMIT 1"
+	rows, err := db.QueryContext(ctx, sqlCommand)
+	if err != nil {
+		panic(err)
+	}
+
+	if rows.Next() {
+		var username string
+
+		err = rows.Scan(&username)
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println("Sukses login dengan username:", username)
+	} else {
+		fmt.Print("Gagal login")
+	}
+
+	defer rows.Close()
+}
