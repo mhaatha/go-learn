@@ -177,3 +177,51 @@ func TestSqlInjection(t *testing.T) {
 
 	defer rows.Close()
 }
+
+func TestSqlInjectionSafet(t *testing.T) {
+	db := GetConnection()
+	defer db.Close()
+
+	ctx := context.Background()
+
+	username := "admin"
+	password := "admin"
+
+	sqlCommand := "SELECT username FROM user WHERE username = ? AND password = ? LIMIT 1"
+	rows, err := db.QueryContext(ctx, sqlCommand, username, password)
+	if err != nil {
+		panic(err)
+	}
+
+	if rows.Next() {
+		var username string
+
+		err = rows.Scan(&username)
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println("Sukses login dengan username:", username)
+	} else {
+		fmt.Print("Gagal login")
+	}
+
+	defer rows.Close()
+}
+
+func TestExecSqlSafe(t *testing.T) {
+	db := GetConnection()
+	defer db.Close()
+
+	ctx := context.Background()
+
+	username := "admin123"
+	password := "admin123"
+
+	sqlCommand := "INSERT INTO user(username, password) VALUES(?, ?)"
+	_, err := db.ExecContext(ctx, sqlCommand, username, password)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("Success insert new data to customer table")
+}
