@@ -6,6 +6,7 @@ import (
 	"testing"
 )
 
+// Server
 func TestServer(t *testing.T) {
 	var server http.Server = http.Server{
 		Addr: "localhost:8080",
@@ -17,6 +18,7 @@ func TestServer(t *testing.T) {
 	}
 }
 
+// Handler
 func TestHandler(t *testing.T) {
 	var myHandler http.HandlerFunc = func(writer http.ResponseWriter, request *http.Request) {
 		_, err := fmt.Fprint(writer, "Hello Golang Web Server")
@@ -36,6 +38,7 @@ func TestHandler(t *testing.T) {
 	}
 }
 
+// ServeMux
 func TestServeMux(t *testing.T) {
 	var mux *http.ServeMux = http.NewServeMux()
 	mux.HandleFunc("/login", func(writer http.ResponseWriter, request *http.Request) {
@@ -54,6 +57,24 @@ func TestServeMux(t *testing.T) {
 	var server http.Server = http.Server{
 		Addr:    "localhost:8080",
 		Handler: mux,
+	}
+
+	var err error = server.ListenAndServe()
+	if err != nil {
+		panic(err)
+	}
+}
+
+// Request
+func TestRequest(t *testing.T) {
+	var myHandler http.HandlerFunc = func(writer http.ResponseWriter, request *http.Request) {
+		fmt.Fprint(writer, request.Method)
+		fmt.Fprint(writer, request.RequestURI)
+	}
+
+	var server http.Server = http.Server{
+		Addr:    "localhost:8080",
+		Handler: myHandler,
 	}
 
 	var err error = server.ListenAndServe()
