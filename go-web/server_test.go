@@ -7,11 +7,11 @@ import (
 )
 
 func TestServer(t *testing.T) {
-	server := http.Server{
+	var server http.Server = http.Server{
 		Addr: "localhost:8080",
 	}
 
-	err := server.ListenAndServe()
+	var err error = server.ListenAndServe()
 	if err != nil {
 		panic(err)
 	}
@@ -25,12 +25,12 @@ func TestHandler(t *testing.T) {
 		}
 	}
 
-	server := http.Server{
+	var server http.Server = http.Server{
 		Addr:    "localhost:8080",
 		Handler: myHandler,
 	}
 
-	err := server.ListenAndServe()
+	var err error = server.ListenAndServe()
 	if err != nil {
 		panic(err)
 	}
