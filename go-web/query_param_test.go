@@ -19,7 +19,7 @@ func Welcome(writer http.ResponseWriter, request *http.Request) {
 }
 
 func TestQueryParameter(t *testing.T) {
-	request := httptest.NewRequest(http.MethodGet, "http://localhost:8080/welcome?name=", nil)
+	request := httptest.NewRequest(http.MethodGet, "http://localhost:8080/welcome?name=Athaya", nil)
 	recorder := httptest.NewRecorder()
 
 	Welcome(recorder, request)
