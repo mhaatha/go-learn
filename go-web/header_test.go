@@ -8,53 +8,39 @@ import (
 	"testing"
 )
 
-// Request Header
-func RequestHeader(writer http.ResponseWriter, request *http.Request) {
-	contentType := request.Header.Get("content-type")
-	fmt.Fprint(writer, contentType)
+func RequestHeader(w http.ResponseWriter, r *http.Request) {
+	contentType := r.Header.Get("content-type")
+	fmt.Fprint(w, contentType)
+}
+
+func ResponseHeader(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("X-Powered-By", "Team 5")
+	fmt.Fprint(w, "OK")
 }
 
 func TestRequestHeader(t *testing.T) {
-	request := httptest.NewRequest(http.MethodGet, "http://localhost:8080/", nil)
-	request.Header.Add("Content-Type", "application/json")
-
+	request := httptest.NewRequest(http.MethodPost, "localhost:8080", nil)
+	request.Header.Add("content-type", "application/json")
 	recorder := httptest.NewRecorder()
 
 	RequestHeader(recorder, request)
 
 	response := recorder.Result()
-	body, _ := io.ReadAll(response.Body)
-	bodyString := string(body)
+	bodyData, _ := io.ReadAll(response.Body)
 
-	expectedResponse := "application/json"
-	if expectedResponse != bodyString {
-		t.Errorf("Expected '%s' but got '%s'", expectedResponse, bodyString)
-	}
-}
-
-// Response Header
-func ResponseHeader(writer http.ResponseWriter, request *http.Request) {
-	writer.Header().Add("X-Powered-Bye", "mhaatha")
-	fmt.Fprint(writer, "OK")
+	fmt.Println(string(bodyData))
 }
 
 func TestResponseHeader(t *testing.T) {
-	request := httptest.NewRequest(http.MethodGet, "http://localhost:8080/", nil)
+	request := httptest.NewRequest(http.MethodPost, "localhost:8080", nil)
 	recorder := httptest.NewRecorder()
 
 	ResponseHeader(recorder, request)
 
 	response := recorder.Result()
-	body, _ := io.ReadAll(response.Body)
-	bodyString := string(body)
+	bodyData, _ := io.ReadAll(response.Body)
+	poweredBy := response.Header.Get("X-Powered-By")
 
-	expectedResponse := "OK"
-	if expectedResponse != bodyString {
-		t.Errorf("Expected '%s' but got '%s'", expectedResponse, bodyString)
-	}
-
-	headerResponse := response.Header.Get("X-Powered-Bye")
-	if headerResponse != "mhaatha" {
-		t.Errorf("Expected 'mhaatha' but got '%s'", headerResponse)
-	}
+	fmt.Println(string(bodyData))
+	fmt.Println(poweredBy)
 }

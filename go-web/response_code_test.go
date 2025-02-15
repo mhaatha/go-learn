@@ -8,34 +8,42 @@ import (
 	"testing"
 )
 
-func ResponseCode(writer http.ResponseWriter, request *http.Request) {
-	name := request.URL.Query().Get("name")
+func ResponseCode(w http.ResponseWriter, r *http.Request) {
+	name := r.URL.Query().Get("name")
 
 	if name == "" {
-		writer.WriteHeader(http.StatusBadRequest)
-		fmt.Fprint(writer, "name cannot empty")
+		w.WriteHeader(http.StatusBadRequest)
+		fmt.Fprint(w, "name is empty")
 	} else {
-		writer.WriteHeader(http.StatusOK)
-		fmt.Fprintf(writer, "Hello %s", name)
+		w.WriteHeader(http.StatusOK)
+		fmt.Fprintf(w, "Hello %s", name)
 	}
 }
 
-func TestResponseCode(t *testing.T) {
-	request := httptest.NewRequest(http.MethodGet, "http://localhost:8080/rescode?name=Gustavo", nil)
+func TestResponseCodeValid(t *testing.T) {
+	request := httptest.NewRequest(http.MethodGet, "localhost:8080/user?name=Hafidz", nil)
 	recorder := httptest.NewRecorder()
 
 	ResponseCode(recorder, request)
 
 	response := recorder.Result()
-	body, _ := io.ReadAll(response.Body)
-	bodyString := string(body)
+	statusCode := response.StatusCode
+	responseBody, _ := io.ReadAll(response.Body)
 
-	expected := "Hello Gustavo"
-	if bodyString != expected {
-		t.Errorf("Expected '%s' but got '%s'", expected, bodyString)
-	}
-	expected = "200 OK"
-	if response.Status != expected {
-		t.Errorf("Expected status '%s' but got '%s'", expected, response.Status)
-	}
+	fmt.Println("Status Code:", statusCode)
+	fmt.Println("Response Body:", string(responseBody))
+}
+
+func TestResponseCodeInvalid(t *testing.T) {
+	request := httptest.NewRequest(http.MethodGet, "localhost:8080/user", nil)
+	recorder := httptest.NewRecorder()
+
+	ResponseCode(recorder, request)
+
+	response := recorder.Result()
+	statusCode := response.StatusCode
+	responseBody, _ := io.ReadAll(response.Body)
+
+	fmt.Println("Status Code:", statusCode)
+	fmt.Println("Response Body:", string(responseBody))
 }

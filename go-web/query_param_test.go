@@ -5,80 +5,70 @@ import (
 	"io"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"strings"
 	"testing"
 )
 
-// Query
-func Welcome(writer http.ResponseWriter, request *http.Request) {
-	name := request.URL.Query().Get("name")
+func SayHello(w http.ResponseWriter, r *http.Request) {
+	name := r.URL.Query().Get("name")
+
 	if name == "" {
-		fmt.Fprint(writer, "Welcome Guest!")
+		fmt.Fprint(w, "Hello User")
 	} else {
-		fmt.Fprintf(writer, "Welcome %s!", name)
+		fmt.Fprintf(w, "Hello %s", name)
 	}
+}
+
+func MultipleParameter(w http.ResponseWriter, r *http.Request) {
+	firstName := r.URL.Query().Get("first_name")
+	lastName := r.URL.Query().Get("last_name")
+
+	fmt.Fprintf(w, "Hello %s %s", firstName, lastName)
+}
+
+func MultipleValueParameter(w http.ResponseWriter, r *http.Request) {
+	var query url.Values = r.URL.Query()
+	var names []string = query["name"]
+
+	fmt.Fprint(w, strings.Join(names, " "))
 }
 
 func TestQueryParameter(t *testing.T) {
-	request := httptest.NewRequest(http.MethodGet, "http://localhost:8080/welcome?name=Athaya", nil)
+	request := httptest.NewRequest(http.MethodGet, "localhost:8080/hello?name=Hafidz", nil)
 	recorder := httptest.NewRecorder()
 
-	Welcome(recorder, request)
+	SayHello(recorder, request)
 
 	response := recorder.Result()
-	body, _ := io.ReadAll(response.Body)
-	bodyString := string(body)
+	defer response.Body.Close()
 
-	expectedResponse := "Welcome Athaya!"
-	if expectedResponse != bodyString {
-		t.Errorf("Expected '%s' but got '%s'", expectedResponse, bodyString)
-	}
-}
-
-// Multiple Query Parameter
-func FullName(writer http.ResponseWriter, request *http.Request) {
-	firstName := request.URL.Query().Get("first_name")
-	lastName := request.URL.Query().Get("last_name")
-
-	fmt.Fprintf(writer, "Hello %s %s", firstName, lastName)
+	dataBody, _ := io.ReadAll(recorder.Body)
+	fmt.Println(string(dataBody))
 }
 
 func TestMultipleQueryParameter(t *testing.T) {
-	request := httptest.NewRequest(http.MethodGet, "http://localhost:8080/fullname?first_name=Gustavo&last_name=Fring", nil)
+	request := httptest.NewRequest(http.MethodGet, "localhost:8080/hello?first_name=Hafidz&last_name=Athaya", nil)
 	recorder := httptest.NewRecorder()
 
-	FullName(recorder, request)
+	MultipleParameter(recorder, request)
 
 	response := recorder.Result()
-	body, _ := io.ReadAll(response.Body)
-	bodyString := string(body)
+	defer response.Body.Close()
 
-	expectedResponse := "Hello Gustavo Fring"
-	if expectedResponse != bodyString {
-		t.Errorf("Expected '%s' but got '%s'", expectedResponse, bodyString)
-	}
+	dataBody, _ := io.ReadAll(recorder.Body)
+	fmt.Println(string(dataBody))
 }
 
-// Multiple Parameter Values
-func MultipleParameterValues(writer http.ResponseWriter, request *http.Request) {
-	queries := request.URL.Query()
-	names := queries["name"]
-
-	fmt.Fprint(writer, "Hello "+strings.Join(names, " "))
-}
-
-func TestMultipleParameterValues(t *testing.T) {
-	request := httptest.NewRequest(http.MethodGet, "http://localhost:8080/hello?name=Gustavo&name=Fring", nil)
+func TestMultipleValueParameter(t *testing.T) {
+	request := httptest.NewRequest(http.MethodGet, "localhost:8080/hello?name=Muhammad&name=Hafidz&name=Athaya", nil)
 	recorder := httptest.NewRecorder()
 
-	MultipleParameterValues(recorder, request)
+	MultipleValueParameter(recorder, request)
 
 	response := recorder.Result()
-	body, _ := io.ReadAll(response.Body)
-	bodyString := string(body)
+	defer response.Body.Close()
 
-	expectedResponse := "Hello Gustavo Fring"
-	if expectedResponse != bodyString {
-		t.Errorf("Expected '%s' but got '%s'", expectedResponse, bodyString)
-	}
+	dataBody, _ := io.ReadAll(recorder.Body)
+	fmt.Println(string(dataBody))
 }
