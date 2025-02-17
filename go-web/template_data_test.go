@@ -17,6 +17,7 @@ type Page struct {
 
 type Address struct {
 	Street string
+	City   string
 }
 
 func TemplateDataMap(w http.ResponseWriter, r *http.Request) {
