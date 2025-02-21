@@ -6,6 +6,12 @@ import (
 	"testing"
 )
 
+type Address struct {
+	Street     string
+	Country    string
+	PostalCode string
+}
+
 type Customer struct {
 	FirstName  string
 	MiddleName string
@@ -13,6 +19,7 @@ type Customer struct {
 	Age        int
 	IsMarried  bool
 	Hobbies    []string
+	Addresses  []Address
 }
 
 func TestEncodeJSONObject(t *testing.T) {
