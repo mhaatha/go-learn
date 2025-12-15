@@ -1,5 +1,7 @@
 package challenge
 
+import "net/http"
+
 type HTTPRequest struct {
 	URL     string
 	Method  string
@@ -30,7 +32,7 @@ func WithBody(jsonStr string) Option {
 func NewRequest(url string, opts ...Option) *HTTPRequest {
 	request := &HTTPRequest{
 		URL:     url,
-		Method:  "GET",
+		Method:  http.MethodGet,
 		Headers: make(map[string]string),
 		Body:    nil,
 	}
