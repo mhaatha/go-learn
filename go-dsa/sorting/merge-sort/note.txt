@@ -1,0 +1,6 @@
+To split an array in two, the length of the array is divided by two, and then rounded down to get a value we call "mid". This "mid" value is used as an index for where to split the array.
+
+[ 12, 8, 9, 3, 11, 5, 4 ].length = 7
+7 / 2 = 3.5
+Math.floor(3.5) = 3 -> "mid"
+[12, 8, 9] [3, 11, 5, 4)
