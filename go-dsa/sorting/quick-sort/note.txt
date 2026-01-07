@@ -1,0 +1,5 @@
+Pivot
+Move other values until LOWER values are on the LEFT of the pivot and HIGHER values are on the RIGHT of the pivot
+
+How to choose a pivot?
+median-of-three -> fokus ke elemen pertama, elemen tengah, dan elemen terakhir
