@@ -3,3 +3,5 @@ Move other values until LOWER values are on the LEFT of the pivot and HIGHER val
 
 How to choose a pivot?
 median-of-three -> fokus ke elemen pertama, elemen tengah, dan elemen terakhir
+
+hari ini aku malas njir, 8 januari 2026
