@@ -202,29 +202,38 @@ Commands:
 ```
 
 # Error Handling
+
 Aplikasi harus menangani input yang tidak valid dengan baik.
 
 Contoh:
+
 ```bash
 tasker done
 ```
+
 harus menghasilkan error yang jelas.
 Contoh:
+
 ```bash
 Error: missing task ID.
 ```
+
 Contoh:
+
 ```bash
 tasker done abc
 ```
+
 ```bash
 Error: invalid task ID.
 ```
 
 Contoh:
+
 ```bash
 tasker unknown
 ```
+
 ```bash
 Error: unknown command "unknown".
 ```
