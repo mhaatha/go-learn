@@ -7,6 +7,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"time"
 )
 
 const pendingStatus = "pending"
@@ -16,6 +17,7 @@ type Task struct {
 	Title     string
 	Status    string
 	CreatedAt string
+	UpdatedAt string
 }
 
 type Database struct {
@@ -50,9 +52,11 @@ func main() {
 				}
 			}
 			data.Tasks = append(data.Tasks, Task{
-				ID:     data.NextID,
-				Title:  args[2],
-				Status: pendingStatus,
+				ID:        data.NextID,
+				Title:     args[2],
+				Status:    pendingStatus,
+				CreatedAt: time.Now().Format(time.DateTime),
+				UpdatedAt: time.Now().Format(time.DateTime),
 			})
 		}
 
