@@ -155,6 +155,57 @@ func main() {
 			fmt.Printf("Error: task with ID %d not found\n", taskID)
 		}
 	case "edit":
+		taskID, err := strconv.Atoi(args[2])
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		newTitle := args[3]
+
+		file, err := os.OpenFile("database.json", os.O_CREATE|os.O_RDWR, 0600)
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer file.Close()
+
+		dec := jsontext.NewDecoder(file)
+		var data Database
+		for {
+			if err := json.UnmarshalDecode(dec, &data); err != nil {
+				if err == io.EOF {
+					break
+				} else {
+					log.Fatal(err)
+				}
+			}
+		}
+
+		isFound := false
+		for i := range data.Tasks {
+			if data.Tasks[i].ID == taskID {
+				data.Tasks[i].Title = newTitle
+				data.Tasks[i].UpdatedAt = time.Now().Format(time.DateTime)
+				isFound = true
+			}
+		}
+
+		if !isFound {
+			fmt.Printf("Error: task %d not found.\n", taskID)
+			return
+		}
+
+		// Overwrite updated tasks back to file
+		jsonData, err := json.Marshal(data, jsontext.Multiline(true))
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		err = os.WriteFile("database.json", jsonData, 0600)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		fmt.Printf("Task %d updated successfully.\n", taskID)
 	case "done":
 		taskID, err := strconv.Atoi(args[2])
 		if err != nil {
