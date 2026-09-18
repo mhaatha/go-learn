@@ -119,6 +119,45 @@ func main() {
 		// Flush the tabwriter
 		w.Flush()
 	case "show":
+		// Membaca file database.json
+		// Menampilkan task dengan ID yang dimasukkan user
+		// Jika ID tidak ditemukan, print error not found
+
+		taskID, err := strconv.Atoi(args[2])
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		file, err := os.Open("database.json")
+		if err != nil {
+			fmt.Println("No tasks found.")
+			return
+		}
+		defer file.Close()
+
+		dec := jsontext.NewDecoder(file)
+		var data Database
+		for {
+			if err := json.UnmarshalDecode(dec, &data); err != nil {
+				if err == io.EOF {
+					break
+				} else {
+					log.Fatal(err)
+				}
+			}
+		}
+
+		isFound := false
+		for i := range data.Tasks {
+			if data.Tasks[i].ID == taskID {
+				fmt.Printf("\nID: %d\nTitle: %s\nStatus: %s\n", data.Tasks[i].ID, data.Tasks[i].Title, data.Tasks[i].Status)
+				isFound = true
+			}
+		}
+
+		if !isFound {
+			fmt.Printf("Error: task with ID %d not found\n", taskID)
+		}
 	case "edit":
 	case "done":
 		taskID, err := strconv.Atoi(args[2])
