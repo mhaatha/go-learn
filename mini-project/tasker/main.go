@@ -7,6 +7,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"text/tabwriter"
 	"time"
 )
 
@@ -76,6 +77,45 @@ func main() {
 		fmt.Println("Task created successfully.")
 		fmt.Printf("\nID: %d\nTitle: %s\nStatus: %s\n", currentID, args[2], pendingStatus)
 	case "list":
+		file, err := os.Open("database.json")
+		if err != nil {
+			fmt.Println("No tasks found.")
+			return
+		}
+		defer file.Close()
+
+		dec := jsontext.NewDecoder(file)
+		var data Database
+		for {
+			if err := json.UnmarshalDecode(dec, &data); err != nil {
+				if err == io.EOF {
+					break
+				} else {
+					log.Fatal(err)
+				}
+			}
+		}
+
+		// Empty tasks validation
+		if len(data.Tasks) == 0 {
+			fmt.Println("No tasks found.")
+			return
+		}
+
+		// Tabwriter initialization
+		w := tabwriter.NewWriter(os.Stdout, 0, 0, 4, ' ', 0)
+
+		// Print header
+		fmt.Fprintln(w, "ID\tSTATUS\tTITLE")
+		fmt.Fprintln(w, "--\t------\t-----")
+
+		// Print tasks
+		for _, task := range data.Tasks {
+			fmt.Fprintf(w, "%d\t%s\t%s\n", task.ID, task.Status, task.Title)
+		}
+
+		// Flush the tabwriter
+		w.Flush()
 	case "show":
 	case "edit":
 	case "done":
