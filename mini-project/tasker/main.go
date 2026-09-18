@@ -119,10 +119,6 @@ func main() {
 		// Flush the tabwriter
 		w.Flush()
 	case "show":
-		// Membaca file database.json
-		// Menampilkan task dengan ID yang dimasukkan user
-		// Jika ID tidak ditemukan, print error not found
-
 		taskID, err := strconv.Atoi(args[2])
 		if err != nil {
 			log.Fatal(err)
