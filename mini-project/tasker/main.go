@@ -322,6 +322,17 @@ func main() {
 
 		fmt.Printf("Task %d deleted seuccessfully.\n", taskID)
 	case "help":
+		fmt.Println("Tasker - CLI Task Manager")
+		fmt.Println("\nUsage:")
+		fmt.Println("  tasker <command> [args]")
+		fmt.Println("\nCommands:")
+		fmt.Println("  add      Create a new task")
+		fmt.Println("  list     List all tasks")
+		fmt.Println("  show     Show task details")
+		fmt.Println("  edit     Edit a task")
+		fmt.Println("  done     Mark a task as completed")
+		fmt.Println("  delete   Delete a task")
+		fmt.Println("  help     Show this help message")
 	default:
 		fmt.Printf("Error: unknown command \"%s\"\n", args[1])
 	}
