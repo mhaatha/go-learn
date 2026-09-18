@@ -7,6 +7,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"strconv"
 	"text/tabwriter"
 	"time"
 )
@@ -119,6 +120,61 @@ func main() {
 	case "show":
 	case "edit":
 	case "done":
+		taskID, err := strconv.Atoi(args[2])
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		file, err := os.OpenFile("database.json", os.O_CREATE|os.O_RDWR, 0600)
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer file.Close()
+
+		dec := jsontext.NewDecoder(file)
+		var data Database
+		for {
+			if err := json.UnmarshalDecode(dec, &data); err != nil {
+				if err == io.EOF {
+					break
+				} else {
+					log.Fatal(err)
+				}
+			}
+		}
+
+		isFound := false
+		// Change status to "completed" if task is found
+		for i := range data.Tasks {
+			if data.Tasks[i].ID == taskID {
+				// Check if task is already completed
+				if data.Tasks[i].Status == "completed" {
+					fmt.Printf("Error: task %d is already completed.\n", taskID)
+					return
+				}
+
+				data.Tasks[i].Status = "completed"
+				isFound = true
+			}
+		}
+
+		if !isFound {
+			fmt.Printf("Error: task %d not found.\n", taskID)
+			return
+		}
+
+		// Overwrite updated tasks back to file
+		jsonData, err := json.Marshal(data, jsontext.Multiline(true))
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		err = os.WriteFile("database.json", jsonData, 0600)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		fmt.Printf("Task %d marked as completed.\n", taskID)
 	case "delete":
 	case "help":
 	default:
