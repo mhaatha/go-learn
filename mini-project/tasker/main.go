@@ -146,7 +146,7 @@ func main() {
 		isFound := false
 		for i := range data.Tasks {
 			if data.Tasks[i].ID == taskID {
-				fmt.Printf("\nID: %d\nTitle: %s\nStatus: %s\n", data.Tasks[i].ID, data.Tasks[i].Title, data.Tasks[i].Status)
+				fmt.Printf("ID: %d\nTitle: %s\nStatus: %s\nCreated: %s\nUpdated: %s\n", data.Tasks[i].ID, data.Tasks[i].Title, data.Tasks[i].Status, data.Tasks[i].CreatedAt, data.Tasks[i].UpdatedAt)
 				isFound = true
 			}
 		}
