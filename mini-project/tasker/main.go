@@ -177,12 +177,6 @@ func main() {
 
 		fmt.Printf("Task %d marked as completed.\n", taskID)
 	case "delete":
-		// Membaca file database.json
-		// Mencari ID task yang dimasukkan user
-		// Jika ID ditemukan, minta konfirmasi user sebelum task dihapus
-		// Jika user tidak mengizinkan, batalkan penghapusan
-		// Jika user mengizinkan, hapus slice menggunakan slices.Delete
-		// Jika ID tidak ditemukan, tampilkan pesan error not found
 		taskID, err := strconv.Atoi(args[2])
 		if err != nil {
 			log.Fatal(err)
