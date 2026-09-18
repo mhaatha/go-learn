@@ -7,6 +7,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"slices"
 	"strconv"
 	"text/tabwriter"
 	"time"
@@ -176,6 +177,70 @@ func main() {
 
 		fmt.Printf("Task %d marked as completed.\n", taskID)
 	case "delete":
+		// Membaca file database.json
+		// Mencari ID task yang dimasukkan user
+		// Jika ID ditemukan, minta konfirmasi user sebelum task dihapus
+		// Jika user tidak mengizinkan, batalkan penghapusan
+		// Jika user mengizinkan, hapus slice menggunakan slices.Delete
+		// Jika ID tidak ditemukan, tampilkan pesan error not found
+		taskID, err := strconv.Atoi(args[2])
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		file, err := os.OpenFile("database.json", os.O_CREATE|os.O_RDWR, 0600)
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer file.Close()
+
+		dec := jsontext.NewDecoder(file)
+		var data Database
+		for {
+			if err := json.UnmarshalDecode(dec, &data); err != nil {
+				if err == io.EOF {
+					break
+				} else {
+					log.Fatal(err)
+				}
+			}
+		}
+
+		isFound := false
+		for i := range data.Tasks {
+			if data.Tasks[i].ID == taskID {
+				fmt.Printf("Delete task %d \"%s\"? (y/N) ", taskID, data.Tasks[i].Title)
+
+				var confirm string
+				fmt.Scanln(&confirm)
+				if confirm != "y" {
+					fmt.Println("Task deletion cancelled.")
+					return
+				}
+
+				data.Tasks = slices.Delete(data.Tasks, i, i+1)
+				isFound = true
+				break
+			}
+		}
+
+		if !isFound {
+			fmt.Printf("Error: task %d not found.\n", taskID)
+			return
+		}
+
+		// Overwrite updated tasks back to file
+		jsonData, err := json.Marshal(data, jsontext.Multiline(true))
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		err = os.WriteFile("database.json", jsonData, 0600)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		fmt.Printf("Task %d deleted seuccessfully.\n", taskID)
 	case "help":
 	default:
 		fmt.Printf("Error: unknown command \"%s\"\n", args[1])
